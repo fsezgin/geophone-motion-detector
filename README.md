@@ -1,2 +1,2 @@
-# real-time-motion-detector
+# geoscope-motion-detector
  
