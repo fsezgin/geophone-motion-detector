@@ -1,9 +1,9 @@
 import json
 import paho.mqtt.client as mqtt
 from functions.visualization import create_real_time_plot
-from functions.data_processing import preprocess_data
+from functions.data_processing import top_3_avg, calculate_statistics  # İstatistik hesaplama fonksiyonunu ekledik
 
-# Veri listeleri
+# Data lists
 means = []
 top_3_means = []
 
@@ -15,21 +15,20 @@ def on_connect(client, userdata, flags, reason_code, properties):
 # The callback for when a PUBLISH message is received from the server.
 def on_message(client, userdata, msg):
     try:
-        # Mesaj yükünü JSON olarak çözümle
+        # Decode the message payload as JSON
         payload = json.loads(msg.payload.decode('utf-8'))
-        # "data" kısmını al
+        # Extract the "data" part
         data = payload.get("data", [])
 
-        # Veriyi işle ve tüm veri için mean ve top 3 mean değerlerini al
-        mean_value, top_3_mean = preprocess_data(data)
+        # Calculate statistical values
+        stats = calculate_statistics(data)
 
-        # Ortalama ve top 3 ortalamayı ekle
-        means.append(mean_value)
-        top_3_means.append(top_3_mean)
+        # Append mean and top_3_mean values to respective lists
+        means.append(stats["mean"])
+        top_3_means.append(stats["top_3_mean"])
 
-        # Veriyi terminale yazdır
-        print(f"Mean: {mean_value}, Top 3 Mean: {top_3_mean}")
-        print("hello")
+        # Print the data to the terminal
+        print(f"Statistics: {stats}")  # İstatistiksel değerler
 
     except json.JSONDecodeError as e:
         print("JSON decode error:", e)
@@ -43,6 +42,6 @@ mqttc.on_message = on_message
 
 mqttc.connect("192.168.1.119", 1883, 60)
 
-# Gerçek zamanlı grafiği oluştur ve göster
-mqttc.loop_start()  # MQTT dinlemeyi başlat
-create_real_time_plot(means, top_3_means)  # Fonksiyonu çağır
+# Create and display the real-time graph
+mqttc.loop_start()  # Start listening to MQTT
+create_real_time_plot(means, top_3_means)  # Call the function
