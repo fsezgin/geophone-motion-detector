@@ -1,4 +1,6 @@
 import json
+import time
+
 import paho.mqtt.client as mqtt
 from functions.visualization import create_real_time_plot
 from functions.data_processing import top_3_avg, calculate_statistics  # İstatistik hesaplama fonksiyonunu ekledik
@@ -12,6 +14,7 @@ def on_connect(client, userdata, flags, reason_code, properties):
     print(f"Connected with result code {reason_code}")
     client.subscribe("geoscope/node1/GEOSCOPE")
 
+# The callback for when a PUBLISH message is received from the server.
 # The callback for when a PUBLISH message is received from the server.
 def on_message(client, userdata, msg):
     try:
@@ -27,8 +30,11 @@ def on_message(client, userdata, msg):
         means.append(stats["mean"])
         top_3_means.append(stats["top_3_mean"])
 
-        # Print the data to the terminal
-        print(f"Statistics: {stats}")  # İstatistiksel değerler
+        # Get the current time in HH:MM:SS format
+        timestamp = time.strftime("%H:%M:%S", time.localtime())
+
+        # Print the data to the terminal with timestamp
+        print(f"{timestamp}, Statistics: {stats}")
 
     except json.JSONDecodeError as e:
         print("JSON decode error:", e)
