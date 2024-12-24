@@ -56,7 +56,7 @@ Key metrics for evaluating the classification model:
 
 ## Key Results
 Example classification results for activity analysis:
-- **Accuracy**: ~92%
+- **Accuracy**: ~88%
 - **Confusion Matrix**: Shows distinct separability for activities like running and standing still, with minor misclassifications in walking.
 
 ---
