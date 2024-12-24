@@ -157,7 +157,9 @@ def process_and_save_data(means, top_3_means, mins, maxs, std_devs, medians, q1s
         "q3": sum(q3s) / len(q3s),
         "skewness": sum(skewness_vals) / len(skewness_vals),
         "dominant_freq": sum(dominant_freqs) / len(dominant_freqs),
-        "energy": sum(energies) / len(energies)
+        "energy": sum(energies) / len(energies),
+        "activity": "running",
+        "name": "Alihan"
     }
 
     # Convert the dictionary to a DataFrame and append it to a CSV file
