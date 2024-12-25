@@ -1,4 +1,4 @@
-# README: Activity and User Analysis using Geoscope Sensor Data
+# README: Activity and User Analysis using Geosphone Sensor Data
 
 ## Project Overview
 This project utilizes a geoscope sensor to analyze human activities (walking, running, standing still) and identify individuals based on their activity patterns. The sensor provides vibration data as numerical values at a sampling rate of 500 Hz. These data are processed and used to train a Long Short-Term Memory (LSTM) model for classification tasks.
