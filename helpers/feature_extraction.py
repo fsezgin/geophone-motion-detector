@@ -125,7 +125,7 @@ def calculate_statistics(data):
 def process_and_save_data(means, top_3_means, mins, maxs, std_devs, medians, q1s, q3s, skewness_vals, dominant_freqs,
                           energies, timestamps):
     """
-    Process and save the statistics for the 10-second data window to a CSV file.
+    Process and save the statistics for the 3-second data window to a CSV file.
 
     Args:
         means (list): List of mean values.
@@ -140,6 +140,7 @@ def process_and_save_data(means, top_3_means, mins, maxs, std_devs, medians, q1s
         dominant_freqs (list): List of dominant frequency values.
         energies (list): List of signal energy values.
         timestamps (list): List of timestamps for the data window.
+        activity ()
 
     Saves:
         A CSV file containing the processed statistics for each 10-second window.
@@ -158,8 +159,8 @@ def process_and_save_data(means, top_3_means, mins, maxs, std_devs, medians, q1s
         "skewness": sum(skewness_vals) / len(skewness_vals),
         "dominant_freq": sum(dominant_freqs) / len(dominant_freqs),
         "energy": sum(energies) / len(energies),
-        "activity": "running",
-        "name": "Alihan"
+        "activity": "waiting",
+        "name": "Emir"
     }
 
     # Convert the dictionary to a DataFrame and append it to a CSV file

@@ -1,9 +1,11 @@
 import json
 import paho.mqtt.client as mqtt
 import numpy as np
-from functions.visualization import create_real_time_plot
-from functions.data_processing import calculate_statistics, process_and_save_data
+
 import time
+
+from helpers.feature_extraction import calculate_statistics, process_and_save_data
+from helpers.visualization import create_real_time_plot
 
 # Data lists to hold accumulated data for processing
 data_list = []  # Holds the incoming data for a specific time window (e.g., 3 seconds)
