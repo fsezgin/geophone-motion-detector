@@ -87,14 +87,15 @@ Example classification results for activity analysis:
 ```
 project/
 |-- data/
-|   |-- processed_data.csv  # Feature-processed data
+|   |-- geophone-sensor-data.csv  # Feature-processed data
 |
-|-- functions/
-|   |-- data_processing.py  # Feature extraction methods
+|-- helpers/
+|   |-- feature_extraction.py  # Feature extraction methods
+|   |-- model_utils.py  # model preprocessing methods
 |   |-- visualization.py    # Real-time and static visualization
 |
-|-- models/
-|   |-- lstm_model.py       # Model architecture
+|-- notebook/
+|   |-- lstm_model.jpynb       # Model architecture
 |
 |-- main.py                 # Main data collection script
 |-- requirements.txt        # Python dependencies
