@@ -145,6 +145,11 @@ def process_and_save_data(means, top_3_means, mins, maxs, std_devs, medians, q1s
     Saves:
         A CSV file containing the processed statistics for each 10-second window.
     """
+
+    if len(means) == 0 or len(top_3_means) == 0 or len(mins) == 0:
+        print("Error: One or more lists are empty, data not saved.")
+        return  # Veri kaydetme işlemi yapılmaz
+
     # Create a dictionary to store the processed data to save
     data_to_save = {
         "timestamp": timestamps[-1],  # Save the timestamp of the last data point in the window
@@ -159,14 +164,16 @@ def process_and_save_data(means, top_3_means, mins, maxs, std_devs, medians, q1s
         "skewness": sum(skewness_vals) / len(skewness_vals),
         "dominant_freq": sum(dominant_freqs) / len(dominant_freqs),
         "energy": sum(energies) / len(energies),
-        "activity": "waiting",
-        "name": "Emir"
+        "activity": "walking",
     }
+
 
     # Convert the dictionary to a DataFrame and append it to a CSV file
     df = pd.DataFrame([data_to_save])
     df.to_csv("data/processed_data.csv", mode='a', header=not pd.io.common.file_exists("data/processed_data.csv"),
               index=False)
+
+    return
 
     # Reset the lists for the next 10-second data window
     means.clear()
