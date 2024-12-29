@@ -1,3 +1,5 @@
+import pickle
+
 import pandas as pd
 import numpy as np
 import tensorflow as tf
@@ -40,10 +42,15 @@ def preprocess_data_for_model(last_n_data, scaler=None):
     return X, scaler
 
 
-def predict_from_csv(model, file_path, sequence_length=3, label_encoder=None):
+def predict_from_csv(model, file_path, sequence_length=3, label_encoder_path=None):
     """
     CSV dosyasındaki veriyi kullanarak tahmin yapar.
     """
+    # Label encoder'ı yükle
+    label_encoder = None
+    if label_encoder_path:
+        label_encoder = load_label_encoder(label_encoder_path)
+
     # Son sequence_length kadar veriyi al
     last_n_data = get_last_n_data(file_path, sequence_length)
 
@@ -64,6 +71,14 @@ def predict_from_csv(model, file_path, sequence_length=3, label_encoder=None):
     # Eğer label_encoder yoksa, sadece sınıf indeksini döndür
     return predicted_class_index[0]
 
+
+def load_label_encoder(label_encoder_path):
+    """
+    Label encoder'ı belirtilen dosya yolundan yükler.
+    """
+    with open(label_encoder_path, 'rb') as f:
+        label_encoder = pickle.load(f)
+    return label_encoder
 
 def load_trained_model(model_path):
     print("Model yükleniyor...")
