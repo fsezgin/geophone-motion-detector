@@ -29,20 +29,20 @@ The features extracted from the vibration data can be divided into **statistical
 
 ## Workflow
 ### Data Collection
-1. Sensor data is streamed via MQTT.
-2. Data is collected in real time, segmented into 3-second time windows (or configurable).
-3. Each window generates one set of feature values for training/testing the model.
+1. Sensor Data Streaming: Data is streamed via MQTT.
+2. Real-Time Data Collection: Data is collected in real time, segmented into 3-second time windows (configurable).
+3. Feature Generation: Each window generates a set of feature values for training/testing the model.
 
 ### Data Processing
-1. Raw sensor data is passed through a **band-pass filter** (0.5-50 Hz) to remove noise and irrelevant frequencies.
-2. Statistical and frequency-domain features are extracted for each time window.
-3. Features and labels are saved into a structured dataset (CSV format).
+1. Filtering: Raw sensor data is passed through a band-pass filter (0.5-50 Hz) to remove noise and irrelevant frequencies.
+2. Feature Extraction: Statistical and frequency-domain features are extracted for each time window.
+3. Dataset Creation: Features and labels are saved into a structured dataset (CSV format).
 
 ### Model Training
 - **Model Type**: Long Short-Term Memory (LSTM)
 - **Input**: Feature values extracted from 3-second windows.
 - **Output**: Predicted activity or activity + user label.
-- **Dataset Split**: 70% training, 15% validation, 15% testing.
+- **Dataset Split**: 80% training, 20% testing.
 
 ### Model Evaluation
 Key metrics for evaluating the classification model:
@@ -65,7 +65,7 @@ Example classification results for activity analysis:
 1. Clone this repository.
    ```bash
    git clone https://github.com/fsezgin/geoscope-motion-detector.git
-   cd fsezgin/geoscope-motion-detector
+   cd geoscope-motion-detector
    ```
 2. Install the required dependencies.
    ```bash
@@ -86,19 +86,39 @@ Example classification results for activity analysis:
 ## Folder Structure
 ```
 project/
-|-- data/
-|   |-- geophone-sensor-data.csv  # Feature-processed data
-|
-|-- helpers/
-|   |-- feature_extraction.py  # Feature extraction methods
-|   |-- model_utils.py  # model preprocessing methods
-|   |-- visualization.py    # Real-time and static visualization
-|
-|-- notebook/
-|   |-- lstm_model.jpynb       # Model architecture
-|
-|-- main.py                 # Main data collection script
-|-- requirements.txt        # Python dependencies
+├── analysis/
+│   ├── v1/
+│   │   ├── correlation_matrix.png  # Correlation matrix visualization
+│   │   ├── feature_distribution.png  # Feature distribution visualization
+│
+├── config/
+│   ├── label_encoder.pkl  # Label encoder file
+│   ├── scaler.pkl  # Scaler file
+│
+├── data/
+│   ├── geophone-sensor-data.csv  # Dataset used for model training
+│   ├── processed_data.csv  # CSV file for real-time streaming data
+│
+├── helpers/
+│   ├── feature_extraction.py  # Feature extraction methods
+│   ├── model_utils.py  # Model preprocessing methods
+│   ├── visualization.py  # Real-time and static visualization
+│
+├── models/
+│   ├── 1/
+│   │   ├── model.joblib  # Model saved in joblib format
+│   │   ├── model.h5  # Model saved in h5 format
+│   ├── 2/
+│       ├── model.joblib
+│       ├── model.h5
+│
+├── notebook/
+│   ├── fs_model_lstmv5.ipynb  # LSTM model architecture
+│   ├── random_forest_classifier.ipynb  # Random forest classifier model
+│
+├── main.py  # Main data collection and processing script
+├── README.md  # Project description file
+├── requirements.txt  # Python
 ```
 
 ## Contributors
