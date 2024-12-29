@@ -18,6 +18,7 @@ count = 0
 # A list to hold the per-second averages for real-time plotting
 point = []
 
+# Load the trained model and label encoder path
 model = load_trained_model(r'C:\Users\furka\Desktop\ain4311\project\real-time-motion-detector\models\2\fs_model_lstm_v5.h5')
 label_encoder_path = r'C:\Users\furka\Desktop\ain4311\project\real-time-motion-detector\config\label_encoder.pkl'
 
@@ -102,7 +103,7 @@ def on_message(client, userdata, msg):
             process_and_save_data(means, top_3_means, mins, maxs, std_devs, medians, q1s, q3s, skewness_vals,
                                   dominant_freqs, energies, timestamps)
 
-            if count >= 9: # sequence_length(3) x data write time(timer = 3)
+            if count >= 9: # After processing enough data, make predictions (3 * 3-second windows)
                 predictions_inverse = predict_from_csv(model, r"C:\Users\furka\Desktop\ain4311\project\real-time-motion-detector\data\processed_data.csv", sequence_length=3, label_encoder_path=label_encoder_path)
                 print(f"Predictions: {predictions_inverse}")
 
