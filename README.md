@@ -121,5 +121,10 @@ project/
 ├── requirements.txt  # Python
 ```
 
+## Dataset Access
+The dataset used in this project is available on Kaggle. You can access and download it using the following link:
+
+[Geophone Sensor Activity Dataset on Kaggle](https://www.kaggle.com/datasets/sezginfurkan/geophone-sensor-dataset)
+
 ## Contributors
 - **Furkan Sezgin**: Project lead and developer.
